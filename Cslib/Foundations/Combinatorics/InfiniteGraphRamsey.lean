@@ -10,7 +10,7 @@ public import Cslib.Init
 public import Mathlib.Algebra.Order.Group.Nat
 public import Mathlib.Data.Fintype.Pigeonhole
 public import Mathlib.Data.Set.Finite.Basic
-public import Mathlib.Data.Set.Lattice
+import Mathlib.Data.Set.Lattice.Bounded
 
 /-! # Ramsey theorem for infinite graphs
 
@@ -130,7 +130,7 @@ theorem infinite_graph_ramsey :
   have : ∀ m n, m < n → v n ∈ vs m := by
     intro m n h_mn
     suffices h1 : (⋂ m < n, vs m) ⊆ vs m by grind
-    exact biInter_subset_of_mem h_mn
+    exact iInter₂_subset m h_mn
   obtain ⟨c', s', h_s'_inf, h_s'_col⟩ :
       ∃ c' : Color, ∃ s' : Set ℕ, s'.Infinite ∧ ∀ n ∈ s', c n = c' := by
     obtain ⟨c', s', h_s'_inf, _, h_s'col⟩ := infinite_pigeonhole_principle c infinite_univ
